@@ -4,7 +4,6 @@ from .ela import ELA
 from .metrics import BasicMetricsELA
 from .util import iterate_with_progress
 
-
 import numpy as np
 import scipy.io as sio
 
