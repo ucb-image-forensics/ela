@@ -2,6 +2,7 @@
 import numpy as np
 from PIL import Image, ImageChops, ImageEnhance
 from scipy import ndimage
+import os
 
 def rgb2gray(rgb):
     return np.dot(rgb[:, :, :3], [0.299, 0.587, 0.144])
@@ -76,12 +77,14 @@ class ELA(object):
         resaved = self.filename + '.resaved.jpg'
         self.image.save(resaved, 'JPEG', quality=self.resave_quality)
         self.resaved_image = Image.open(resaved)
+        os.remove(resaved)
 
     def _resave_first_image(self):
         resaved = self.filename + '.r1.jpg'
         Image.open(self.filename).save(
             resaved, 'JPEG', quality=100)
         self.image = Image.open(resaved)
+        os.remove(resaved)
 
 class FilteredMetricsELA(object):
 
@@ -107,7 +110,7 @@ class FilteredMetricsELA(object):
 
     @property
     def max_v(self):
-        return self.metrics[max_v]
+        return self.metrics[3]
 
 class BasicMetricsELA(object):
 
