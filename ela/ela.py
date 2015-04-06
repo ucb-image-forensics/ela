@@ -82,7 +82,6 @@ class ELA(object):
 
     def _resave_first_image(self):
         resaved = self.filename + '.r1.jpg'
-        Image.open(self.filename).save(
-            resaved, 'JPEG', quality=100)
+        Image.open(self.filename).save(resaved, 'JPEG', quality=100)
         self.image = Image.open(resaved)
         os.remove(resaved)
