@@ -1,13 +1,15 @@
 from __future__ import absolute_import
 
-from .ela import ELA
-from .metrics import BasicMetricsELA
-from .util import iterate_with_progress
+import sys
+import os
 
 import numpy as np
 import scipy.io as sio
 
-import sys, os
+from .ela import ELA
+from .metrics import BasicMetricsELA
+from .util import iterate_with_progress
+
 
 def generate_metrics(directory, output_file):
     raw_basic_metrics = np.empty([0, 9])
@@ -45,7 +47,7 @@ def generate_raw_data(directory, output_file):
 def main():
     directory = sys.argv[1]
     output_file = 'output.mat'
-    generate_raw_data(directory, output_file)
+    # generate_raw_data(directory, output_file)
     generate_metrics(directory, output_file)
 
 if __name__ == '__main__':
