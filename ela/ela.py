@@ -93,8 +93,7 @@ class ELA(object):
 
     def save_suspect_region(self):
         given_image = self._image.copy()
-        mask = self.data_one_channel
-        mask = gaussian_filter(mask, 10)
+        mask = gaussian_filter(self.data_one_channel, 10)
         mask = mask * (255.0 / np.max(mask))
         mask = (mask > np.percentile(mask, 66)) * 32
         mask = mask.astype(np.int8)
