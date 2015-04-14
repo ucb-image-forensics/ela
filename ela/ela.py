@@ -83,13 +83,13 @@ class ELA(object):
 
         low_risk_mask_alpha = Image.fromarray(low_risk_mask).convert('L')
         low_risk_mask_image = Image.merge('RGBA', [Image.new('L', low_risk_mask_alpha.size, color=255),
-                                                   Image.new('L', low_risk_mask_alpha.size, color=255),
+                                                   Image.new('L', low_risk_mask_alpha.size, color=196),
                                                    Image.new('L', low_risk_mask_alpha.size, color=0),
                                                    low_risk_mask_alpha])
 
         high_risk_mask_alpha = Image.fromarray(high_risk_mask).convert('L')
         high_risk_mask_image = Image.merge('RGBA', [Image.new('L', high_risk_mask_alpha.size, color=255),
-                                                    Image.new('L', high_risk_mask_alpha.size, color=0),
+                                                    Image.new('L', high_risk_mask_alpha.size, color=171),
                                                     Image.new('L', high_risk_mask_alpha.size, color=0),
                                                     high_risk_mask_alpha])
 
