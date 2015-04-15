@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, division
 
 import os
 
@@ -49,13 +49,16 @@ class ELA(object):
     @property
     def low_freq_mask(self):
         if not hasattr(self, '_low_freq_mask'):
-            low_passed = gaussian_filter(self.image_data_gray_scale, 5)
-            abs_diff = np.abs(self.image_data_gray_scale - low_passed)
-            clipped = abs_diff * (abs_diff < np.percentile(abs_diff, 23))
+            normalized = self.image_data_gray_scale \
+                         / np.std(self.image_data_gray_scale) \
+                         - np.mean(self.image_data_gray_scale)
+            low_passed = gaussian_filter(normalized, 5)
+            abs_diff = np.abs(normalized - low_passed)
+            clipped = (abs_diff < 0.03).astype(np.float)
             max_v = np.max(clipped)
             scaled = clipped * (255.0 / max_v) if max_v else (clipped + 255.0)
-            blurred = gaussian_filter(scaled, 10)
-            self._low_freq_mask = (blurred > np.percentile(blurred, 50)).astype(np.uint8)
+            blurred = gaussian_filter(scaled, 2)
+            self._low_freq_mask = (blurred > 64).astype(np.uint8)
         return self._low_freq_mask
 
     @property
